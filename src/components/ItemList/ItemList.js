@@ -9,18 +9,42 @@ import FormControl from '../FormControl/FormControl';
 
 class ItemList extends Component {
 
+	constructor(){
+		super();
+		this.state = {
+			inputValues: []
+		};
+	}
 
+	onAddChangeHandler = (text) =>{
+		this.setState( (prevState) => {
+			return {
+				inputValues: prevState.inputValues.concat(text)
+			};
+		});
+	}
 
 	render () {
+
+		const inputValues = this.state.inputValues ;
+		const items = inputValues.map( (itemName, i) => {
+			return (
+			   <Item
+				  key={i} 
+				  text={itemName}
+			   />
+			);
+		});
+
+
 		return (
 			  <React.Fragment>
-				  <FormControl />
+			  	  <FormControl saveText= {this.onAddChangeHandler}   />
+				  
 				  <View style={styles.ItemList}>
-					<Item text="Ogaa"/>
-					<Item text="Booga"/>
-					<Item text="Shaia"/>
-					<Item text="Shais"/>
+					{items}
 				  </View>
+
 			  </React.Fragment>
 		);
 	} 
